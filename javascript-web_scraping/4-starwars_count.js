@@ -17,7 +17,7 @@ request(requestSettings, (error, response, body) => {
     const movieData = JSON.parse(body).results;
     let count = 0;
     for (const movie of movieData) {
-      //console.log(movie.characters);
+      // console.log(movie.characters);
       for (const char of movie.characters) {
         if (char === charUrl) {
           count = count + 1;
@@ -25,7 +25,7 @@ request(requestSettings, (error, response, body) => {
       }
     }
     console.log(count);
-    //console.log(movieData);
+    // console.log(movieData);
   } catch (parseError) {
     console.error('Error parsing JSON:', parseError);
   }
