@@ -13,7 +13,7 @@ request(requestSettings, (error, response, body) => {
   }
   const users = JSON.parse(body);
   // console.log(users);
-  let tasksCompleted = {};
+  const tasksCompleted = {};
   for (const user of users) {
     if (user.completed === true) {
       tasksCompleted[user.userId] = (tasksCompleted[user.userId] || 0) + 1;
