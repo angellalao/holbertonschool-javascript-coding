@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 const request = require('request');
-const charUrl = 'https://swapi-api.hbtn.io/api/people/18/';
+const charId = '18';
 const requestSettings = {
   method: 'GET',
   url: `${process.argv[2]}`
@@ -18,8 +18,8 @@ request(requestSettings, (error, response, body) => {
     let count = 0;
     for (const movie of movieData) {
       // console.log(movie.characters);
-      for (const char of movie.characters) {
-        if (char === charUrl) {
+      for (const charUrl of movie.characters) {
+        if (charUrl.includes(`${charId}`)) {
           count = count + 1;
         }
       }
