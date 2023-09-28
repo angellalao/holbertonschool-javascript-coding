@@ -19,7 +19,7 @@ function countStudents(file) {
     // console.log(fields);
 
     for (const eachField in fields) {
-      if (fields.hasOwnProperty(eachField)) {
+      if (Object.prototype.hasOwnProperty.call(fields, eachField)) {
         const names = [];
         for (const line of lines) {
           const splitLine = line.split(',');
