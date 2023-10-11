@@ -4,7 +4,8 @@ async function countStudents(file) {
   try {
     const data = await fs.readFile(file, 'utf8');
     // console.log(data);
-    const lines = data.split('\n');
+    // const lines = data.split('\n');
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
     lines.shift();
     // console.log(lines);
     const studentCount = lines.length;
@@ -28,7 +29,7 @@ async function countStudents(file) {
             names.push(`${name}`);
           }
         }
-        console.log(`Number of students in ${eachField}: ${fields[eachField]}. List:${names.join(', ')}`);
+        console.log(`Number of students in ${eachField}: ${fields[eachField]}. List: ${names.join(', ')}`);
       }
     }
   } catch (err) {
