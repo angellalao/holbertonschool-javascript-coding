@@ -25,10 +25,10 @@ async function countStudents(file) {
           const field = splitLine[3];
           if (field === eachField) {
             const name = splitLine[0];
-            names.push(` ${name}`);
+            names.push(`${name}`);
           }
         }
-        console.log(`Number of students in ${eachField}: ${fields[eachField]}. List:${names}`);
+        console.log(`Number of students in ${eachField}: ${fields[eachField]}. List:${names.join(', ')}`);
       }
     }
   } catch (err) {
