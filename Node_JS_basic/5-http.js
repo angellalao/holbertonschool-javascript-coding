@@ -29,7 +29,7 @@ async function countStudents(file) {
 const app = http.createServer(async (request, response) => {
   if (request.url === '/') {
     response.writeHead(200, { 'Content-Type': 'text/plain' });
-    response.write('Hello Holberton School');
+    response.write('Hello Holberton School!');
     response.end();
   }
   if (request.url === '/students') {
@@ -45,7 +45,7 @@ const app = http.createServer(async (request, response) => {
       response.writeHead(500, {
         'Content-Type': 'text/plain',
       });
-      response.end(responseText);
+      response.end('Cannot load the database');
     }
   } else {
     response.writeHead(404, { 'Content-Type': 'text/plain' });
