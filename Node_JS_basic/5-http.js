@@ -21,7 +21,7 @@ async function countStudents(file) {
       }
     }
     return (`Number of students: ${studentCount}\nNumber of students in CS: ${cs.length}. List: ${cs.join(', ')}\nNumber of students in SWE: ${swe.length}. List: ${swe.join(', ')}`);
-  } catch (err) {
+  } catch (error) {
     throw new Error('Cannot load the database');
   }
 }
@@ -31,12 +31,10 @@ const app = http.createServer(async (request, response) => {
     response.writeHead(200, { 'Content-Type': 'text/plain' });
     response.write('Hello Holberton School!');
     response.end();
-  }
-  if (request.url === '/students') {
-    const studentData = await countStudents(process.argv[2]);
-    const responseText = `This is the list of our students\n${studentData}`;
+  } else if (request.url === '/students') {
     try {
-      // console.log('studentData:', studentData);
+      const studentData = await countStudents('./blabla.csv');
+      const responseText = `This is the list of our students\n${studentData}`;
       response.writeHead(200, {
         'Content-Type': 'text/plain',
       });
