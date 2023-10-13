@@ -17,5 +17,6 @@ request(requestSettings, (error, response, body) => {
     if (err) {
       console.error(err);
     }
+    // console.log(JSON.parse(body));
   });
 });
