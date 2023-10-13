@@ -33,10 +33,10 @@ const app = http.createServer(async (request, response) => {
     response.end();
   }
   if (request.url === '/students') {
+    const studentData = await countStudents(process.argv[2]);
+    const responseText = `This is the list of our students\n${studentData}`;
     try {
-      const studentData = await countStudents(process.argv[2]);
-      console.log('studentData:', studentData);
-      const responseText = `This is the list of our students\n${studentData}`;
+      // console.log('studentData:', studentData);
       response.writeHead(200, {
         'Content-Type': 'text/plain',
       });
@@ -45,7 +45,7 @@ const app = http.createServer(async (request, response) => {
       response.writeHead(500, {
         'Content-Type': 'text/plain',
       });
-      response.end();
+      response.end(responseText);
     }
   } else {
     response.writeHead(404, { 'Content-Type': 'text/plain' });
