@@ -26,28 +26,29 @@ async function countStudents(file) {
   }
 }
 
-const app = http.createServer(async (request, response) => {
-  if (request.url === '/') {
-    response.writeHead(200, { 'Content-Type': 'text/plain' });
-    response.write('Hello Holberton School!');
-    response.end();
-  } else if (request.url === '/students') {
+const app = http.createServer(async (req, res) => {
+  const path = process.argv[2];
+  if (req.url === '/') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello Holberton School!');
+  } else if (req.url === '/students') {
+    const title = 'This is the list of our students\n';
     try {
-      const studentData = await countStudents('./blabla.csv');
-      const responseText = `This is the list of our students\n${studentData}`;
-      response.writeHead(200, {
-        'Content-Type': 'text/plain',
-      });
-      response.end(responseText);
+      const result = await countStudents(path);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end(title + result);
     } catch (error) {
-      response.writeHead(500, {
+      res.writeHead(500, {
         'Content-Type': 'text/plain',
       });
-      response.end(`This is the list of our students\n${error.message}`);
+      res.end(`This is the list of our students\n${error.message}`);
     }
   } else {
-    response.writeHead(404, { 'Content-Type': 'text/plain' });
-    response.end('Not Found');
+    res.statusCode = 404;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Not Found');
   }
 }).listen(1245);
 
