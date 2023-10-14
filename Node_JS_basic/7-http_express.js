@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 
 app.get('/students', async (req, res) => {
   try {
-    const studentData = await countStudents(process.argv[6]);
+    const studentData = await countStudents(process.argv[2]);
     res.send(`This is the list of our students\n${studentData}`);
   } catch (error) {
     res.status(500).send(`This is the list of our students\n${error.message}`);
