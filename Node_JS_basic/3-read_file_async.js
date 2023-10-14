@@ -1,38 +1,24 @@
-const fs = require('fs').promises;
+const { readFile } = require('fs').promises;
 
-async function countStudents(file) {
+async function countStudents(path) {
   try {
-    const data = await fs.readFile(file, 'utf8');
-    // console.log(data);
-    // const lines = data.split('\n');
+    const data = await readFile(path, 'utf-8');
     const lines = data.split('\n').filter((line) => line.trim() !== '');
-    lines.shift();
-    // console.log(lines);
-    const studentCount = lines.length;
-    console.log(`Number of students: ${studentCount}`);
 
-    const fields = {};
-    for (const line of lines) {
-      const splitLine = line.split(',');
-      const field = splitLine[3];
-      fields[field] = (fields[field] || 0) + 1;
-    }
-    // console.log(fields);
-    for (const eachField in fields) {
-      if (Object.prototype.hasOwnProperty.call(fields, eachField)) {
-        const names = [];
-        for (const line of lines) {
-          const splitLine = line.split(',');
-          const field = splitLine[3];
-          if (field === eachField) {
-            const name = splitLine[0];
-            names.push(`${name}`);
-          }
-        }
-        console.log(`Number of students in ${eachField}: ${fields[eachField]}. List: ${names.join(', ')}`);
+    const studentData = lines.slice(1).map((line) => line.split(','));
+    // console.log(`Number of students: ${studentData.length}`);
+
+    const cs = [];
+    const swe = [];
+    for (let i = 0; i < studentData.length; i += 1) {
+      if (studentData[i][3] === 'CS') {
+        cs.push(studentData[i][0]);
+      } else if (studentData[i][3] === 'SWE') {
+        swe.push(studentData[i][0]);
       }
     }
-  } catch (err) {
+    return (`Number of students: ${studentData.length}\nNumber of students in CS: ${cs.length}. List: ${cs.join(', ')}\nNumber of students in SWE: ${swe.length}. List: ${swe.join(', ')}`);
+  } catch (error) {
     throw new Error('Cannot load the database');
   }
 }
